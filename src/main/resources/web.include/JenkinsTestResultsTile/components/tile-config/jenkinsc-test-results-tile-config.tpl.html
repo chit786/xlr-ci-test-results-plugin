@@ -1,0 +1,74 @@
+<!--
+
+    Copyright (c) 2018. All rights reserved.
+
+    This software and all trademarks, trade names, and logos included herein are the property of XebiaLabs, Inc. and its affiliates, subsidiaries, and licensors.
+
+-->
+<div class="sonar-summary-tile-config sonar-common-tile-config report-tile-config">
+    <div ng-show="$ctrl.isLoading" class="spinner" style="text-align: center">
+        <img src="static/@project.version@/styles/img/big-ajax-loader.gif" alt="Loading..."/>
+    </div>
+    <div class="form-horizontal" ng-hide="$ctrl.isLoading">
+
+        <div class="form-group">
+            <label for="title" class="control-label col-xs-3">Title <span class="error">*</span></label>
+            <div class="col-xs-9">
+                <input type="text" id="title" name="title" required
+                       ng-model="$ctrl.tile.properties.title"
+                       ng-model-options="{ getterSetter: true }"
+                       class="form-control">
+                <span class="description">Name of the tile</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-3">Server <span class="error">*</span></label>
+            <div class="col-xs-9">
+                <div inline-select-editor
+                     name="Sonar server to connect with"
+                     select-options="$ctrl.sonarServers"
+                     model="$ctrl.tile.properties.sonarServer"
+                     on-change="$ctrl.refreshSonarMetrics()"
+                     class="inline-select-editor">
+                    {{$ctrl.getCurrentSonarServerName()}}
+                </div>
+                <span class="description">SonarQube server to connect with</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="resource" class="control-label col-xs-3">Project <span class="error">*</span></label>
+            <div class="col-xs-9">
+                <input type="text" id="resource" name="resource" required
+                       ng-model="$ctrl.tile.properties.resource"
+                       class="form-control">
+                <span class="description">Component to pull metrics from</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-xs-3">Metrics <span class="error">*</span></label>
+            <div ng-if="$ctrl.isLoadingMetrics" class="spinner" style="text-align: center">
+                <img src="static/@project.version@/styles/img/big-ajax-loader.gif" alt="Loading..."/>
+            </div>
+            <div class="error col-xs-12" ng-if="($ctrl.hasSonarMetricsError && $ctrl.tile.properties.sonarServer) && !$ctrl.isLoadingMetrics">
+                Error occurred while fetching data. Check your sonar configuration.
+            </div>
+            <div class="col-xs-9" ng-if="!$ctrl.isLoadingMetrics">
+                <div xl-dip-list-of-ci
+                     is-disabled="$ctrl.hasSonarMetricsError || $ctrl.isLoadingMetrics"
+                     ng-model="$ctrl.metrics"
+                     metadata="{name: 'metrics', label: ''}"
+                     obj-label="title"
+                     handlers="$ctrl.metricsHandlers"
+                     open-on-click="true"
+                     empty-placeholder="Select metrics...">
+                </div>
+                <span class="description">
+                    Metrics to display
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

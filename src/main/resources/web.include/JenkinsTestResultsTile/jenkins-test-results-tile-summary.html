@@ -1,21 +1,8 @@
-<div data-ng-controller="summary.JenkinsBuildsTileController as jenkinsCtrl" class="dashboard-tile">
+<!--
 
-    <div class="row" data-ng-if="jenkinsCtrl.counts && jenkinsCtrl.totalCount > 0">
-        <div class="col-md-7">
-            <div class="highcharts-tile" donut-chart data="jenkinsCtrl.counts" options="jenkinsCtrl.chartOptions"></div>
-        </div>
-        <div class="col-md-5">
-            <ul>
-                <li class="row" ng-repeat="status in ['completed', 'failed', 'progress', 'planned', 'skipped']">
-                    <span class="col-sm-1"><span class="circle status-{{status}}" ></span></span>
-                    <span class="col-sm-1">{{ jenkinsCtrl.counts[status] }}</span>
-                    <span class="col-sm-6 pls status-message">{{ status === 'completed' ? 'success' : status }}</span>
-                </li>
-            </ul>
-        </div>
-    </div>
+    Copyright (c) 2018. All rights reserved.
 
-    <div class="no-items-message" data-ng-if="jenkinsCtrl.totalCount === 0">
-        There are no Jenkins tasks in this {{ jenkinsCtrl.release.status === 'TEMPLATE' ? 'template' : 'release' }}.
-    </div>
-</div>
+    This software and all trademarks, trade names, and logos included herein are the property of XebiaLabs, Inc. and its affiliates, subsidiaries, and licensors.
+
+-->
+<sonar-summary-tile-view tile="xlrTile.tile"></sonar-summary-tile-view>

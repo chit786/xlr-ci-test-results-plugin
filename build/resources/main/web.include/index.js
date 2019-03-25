@@ -1,5 +1,8 @@
-import "./JenkinsTestResultsTile/css/jenkins-test-results-tile.css";
-import {JenkinsTestResultsTileController} from "./JenkinsTestResultsTile/js/jenkins-test-results-tile";
+/*
+ * Copyright (c) 2018. All rights reserved.
+ *
+ * This software and all trademarks, trade names, and logos included herein are the property of XebiaLabs, Inc. and its affiliates, subsidiaries, and licensors.
+ */
+import './JenkinsTestResultsTile';
 
-JenkinsTestResultsTileController.$inject = ['$scope', 'ConfigurationInstances', 'XlrTileHelper'];
-angular.module('xlrelease').controller('summary.JenkinsTestResultsTileController', JenkinsTestResultsTileController);
+import './common.less';

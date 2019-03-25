@@ -5,7 +5,9 @@ if jenkinsciServer is None:
     print "No server provided."
     sys.exit(1)
 
-status = "| Metric         |      Value       |  \n"
+resultSet = dict()
+
+status = "| Metric         |      Count       |  \n"
 
 status += "|--------------- |:----------------:| \n"
 
@@ -19,6 +21,9 @@ buildNum = 'latest'
 if buildId != buildNum:
     buildNum = buildId
 
+if buildNum == 'latest':
+    buildNum = 'lastCompletedBuild'
+
 jenkinsci = JenkinsciScript(jenkinsciServer, username, password)
 
 responseVal = jenkinsci.get_jenkinsci_results(urllib.quote(jobid), buildNum)
@@ -27,6 +32,13 @@ buildStatus = 'PASSED'
 
 if responseVal['failCount'] > 0:
     buildStatus = 'FAILED'
+
+for obj in responseVal['suites']:
+    for case in obj['cases']:
+        if case['status'] in ['REGRESSION', 'FAILED']:
+            resultSet[obj['name']] = case['name']
+
+testResults = resultSet
 
 status += "|%s|%s| \n" % ('Passed', responseVal['passCount'])
 status += "|%s|%s| \n" % ('Failed', responseVal['failCount'])

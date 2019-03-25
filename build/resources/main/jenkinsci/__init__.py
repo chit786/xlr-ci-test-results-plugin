@@ -19,15 +19,11 @@ class JenkinsciScript:
         self.password = password
         self.encoding = encoding
 
-    def get_jenkinsci_results(self, jobid):
-        buildNum = 'latest'
+    def get_jenkinsci_results(self, jobid, buildId):
         if not jobid:
             error('No job id is provided.')
 
-        if buildId != buildNum:
-            buildNum = buildId
-
-        testresulturl = '/job/' + jobid + '/' + buildNum + '/testReport/api/json'
+        testresulturl = '/job/' + jobid + '/' + buildId + '/testReport/api/json'
 
         request = self._createRequest()
         jennkinsci_response = request.get(testresulturl, contentType='application/json')

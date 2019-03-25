@@ -1,0 +1,34 @@
+.sonar-summary-tile {
+  &.report-tile {
+    &.tile-content-loaded {
+      margin-top: 20px;
+      .card-title {
+        top: -20px;
+      }
+    }
+    .card-content {
+      font-size: inherit;
+      font-weight: inherit;
+      &.loaded {
+        height: inherit;
+        overflow-y: auto;
+      }
+    }
+  }
+
+  table {
+    width: 100%;
+
+    tr:first-child td {
+      border-top: none;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    td {
+      padding: 0 10px;
+    }
+  }
+}
