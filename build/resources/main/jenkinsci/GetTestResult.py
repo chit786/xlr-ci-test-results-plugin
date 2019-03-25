@@ -1,0 +1,30 @@
+import sys, string, json, urllib
+from jenkinsci import JenkinsciScript
+
+if jenkinsciServer is None:
+    print "No server provided."
+    sys.exit(1)
+
+status = "| Metric         |      Value       |  \n"
+
+status += "|--------------- |:----------------:| \n"
+
+jenkinsciUrl = jenkinsciServer['url']
+
+if jenkinsciUrl.endswith('/'):
+    jenkinsciUrl = jenkinsciUrl[:len(jenkinsciUrl)-1]
+
+jenkinsci = JenkinsciScript(jenkinsciServer, username, password)
+
+responseVal = jenkinsci.get_jenkinsci_results(urllib.quote(jobid))
+
+buildStatus = 'PASSED'
+
+if responseVal['failCount'] > 0:
+    buildStatus = 'FAILED'
+
+status += "|%s|%s| \n" % ('Passed', responseVal['passCount'])
+status += "|%s|%s| \n" % ('Failed', responseVal['failCount'])
+status += "|%s|%s| \n" % ('skipped', responseVal['skipCount'])
+
+print status
