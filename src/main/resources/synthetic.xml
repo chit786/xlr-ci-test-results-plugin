@@ -31,18 +31,18 @@
         <property name="testResults" description="Test results for the provided build id" category="output" kind="map_string_string"/>
     </type>
     <!--Tile-->
-    <!--<type type="jenkinsci.JenkinsTestResultsTile" label="jenkins ci test results" extends="xlrelease.Tile" description="Display Jenkins test results.">-->
-        <!--<property name="uri" hidden="true" default="include/JenkinsTestResultsTile/jenkins-test-results-tile-summary.html" />-->
-        <!--<property name="detailsUri" hidden="true" default="include/JenkinsTestResultsTile/jenkins-test-results-config-summary.html" />-->
-        <!--<property name="title" description="Tile title" default="Jenkins tests"/>-->
-        <!--<property category="input" name="jenkinsciServer" referenced-type="jenkinsci.Server" kind="ci" label="Server"-->
-                  <!--description="Jenkins ci server id to connect to"/>-->
-        <!--<property category="input" name="username" required="false" description="Overrides the username used to connect to the server"/>-->
-        <!--<property category="input" name="password" password="true" required="false" description="Overrides the password used to connect to the server"/>-->
-        <!--<property name="jobid" label="Job name" category="input" />-->
-        <!--<property name="buildId" category="input" default="latest"/>-->
-        <!--<property name="embedded" kind="boolean" hidden="true" default="true" required="false"/>-->
-        <!--<property name="supportedScopes" kind="list_of_string" default="global,folder,release" hidden="true"/>-->
-    <!--</type>-->
+    <type type="jenkinsci.JenkinsTestResultsTile" label="jenkins ci test results" extends="xlrelease.Tile" description="Display Jenkins test results.">
+        <property name="uri" hidden="true" default="include/JenkinsTestResultsTile/jenkins-test-results-tile-summary.html" />
+        <property name="detailsUri" hidden="true" default="include/JenkinsTestResultsTile/jenkins-test-results-config-summary.html" />
+        <property name="title" description="Tile title" default="Jenkins tests"/>
+        <property category="input" name="jenkinsciServer" referenced-type="jenkinsci.Server" kind="ci" label="Server"
+                  description="Jenkins ci server id to connect to"/>
+        <property category="input" name="username" required="false" description="Overrides the username used to connect to the server"/>
+        <property category="input" name="password" password="true" required="false" description="Overrides the password used to connect to the server"/>
+        <property name="jobid" label="Job name" category="input" />
+        <property name="buildId" category="input" default="latest"/>
+        <property name="embedded" kind="boolean" hidden="true" default="true" required="false"/>
+        <property name="supportedScopes" kind="list_of_string" default="global,folder,release" hidden="true"/>
+    </type>
 
 </synthetic>

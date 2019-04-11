@@ -1,0 +1,37 @@
+{
+  "name": "xlr-ci-test-results-plugin",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "webpack --mode=production --colors --display-error-details"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chit786/xlr-ci-test-results-plugin.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chit786/xlr-ci-test-results-plugin/issues"
+  },
+  "homepage": "https://github.com/chit786/xlr-ci-test-results-plugin#readme",
+  "devDependencies": {
+    "angular": "1.5.8",
+    "babel-cli": "6.26.0",
+    "babel-eslint": "8.0.0",
+    "babel-loader": "7.1.5",
+    "babel-plugin-transform-runtime": "6.23.0",
+    "babel-preset-es2015": "6.24.1",
+    "babel-preset-stage-0": "6.24.1",
+    "babel-register": "6.26.0",
+    "css-loader": "1.0.0",
+    "less": "3.8.0",
+    "less-loader": "4.1.0",
+    "lodash": "4.11.1",
+    "mini-css-extract-plugin": "0.4.1",
+    "moment": "2.10.3",
+    "raw-loader": "0.5.1",
+    "webpack": "4.3.0",
+    "webpack-cli": "3.1.0"
+  }
+}
