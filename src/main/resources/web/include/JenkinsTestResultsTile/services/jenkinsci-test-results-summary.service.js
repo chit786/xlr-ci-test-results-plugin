@@ -12,16 +12,18 @@ export default class JenkinsCiService {
         this.ConfigurationService = ConfigurationService;
     }
 
-    fetchTileData(tileId, tileProperties) {
-        return this.Backend.get(`tiles/${tileId}/data`, {...tileProperties, hideAlert: true});
-    }
+    // fetchTileData(tileId, tileProperties) {
+    //     return this.Backend.get(`tiles/${tileId}/data`, {...tileProperties, hideAlert: true});
+    // }
 
     fetchJenkinsServers() {
         return this.ConfigurationService.searchAllConfiguration('jenkinsci.Server', null).then((data => data['jenkinsci.Server']));
     }
 
-    fetchMetrics(serverId) {
-        return this.Backend.get('api/extension/jenkins/metrics', {params: {serverId}, hideAlert: true}).then((resp) => {
+    fetchTileData(serverId, buildId, jobid, uName, pass) {
+        console.log(serverId);
+        return this.Backend.get(`api/extension/jenkins/metrics`, {params: {serverId, buildId, jobid, ...uName, ...pass}, hideAlert: true}).then((resp) => {
+            console.log('log', _.get(resp, 'data.entity'));
             return _.get(resp, 'data.entity');
         });
     }

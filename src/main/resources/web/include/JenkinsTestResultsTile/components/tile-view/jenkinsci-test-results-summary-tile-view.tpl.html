@@ -9,17 +9,26 @@
      class="report-tile sonar-summary-tile"
      ng-class="{'tile-content-loaded': $ctrl.isContentLoaded()}">
     <tile-title ng-if="$ctrl.isConfigured">
-        <span class="mrm">
-            <i class="xlr-application-icon"></i>
-            <span>{{::$ctrl.tile.properties}}</span>
-        </span>
+        Jenkins Test Report
     </tile-title>
     <tile-content>
         <div class="sonar-summary-tile-content ptl">
             <table class="table">
                 <tr>
-                    <td>Analysis Date</td>
-                    <!--<td>{{$ctrl.result.analysisDate | date : "medium"}}</td>-->
+                    <td>Passed</td>
+                    <td>{{$ctrl.result.passCount}}</td>
+                </tr>
+                <tr>
+                    <td>Failed</td>
+                    <td>{{$ctrl.result.failCount}}</td>
+                </tr>
+                <tr>
+                    <td>Skipped</td>
+                    <td>{{$ctrl.result.skipCount}}</td>
+                </tr>
+                <tr>
+                    <td>Duration</td>
+                    <td>{{$ctrl.result.duration}}</td>
                 </tr>
             </table>
         </div>

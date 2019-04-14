@@ -9,10 +9,11 @@ import template from './jenkinsci-test-results-summary-tile-view.tpl.html';
 
 class JenkinsciTileViewController {
 
-    static $inject = ['JenkinsCiService', 'ReportLoader', 'Report'];
+    static $inject = ['JenkinsCiService', 'ReportLoader', 'Report', 'Ids'];
 
-    constructor(JenkinsCiService, ReportLoader, Report) {
+    constructor(JenkinsCiService, ReportLoader, Report, Ids) {
         this.JenkinsCIService = JenkinsCiService;
+        this.Ids= Ids;
         this.loader = new ReportLoader();
         this.report = new Report();
     }
@@ -22,7 +23,6 @@ class JenkinsciTileViewController {
             && this.tile.properties.jobid
             && this.tile.properties.buildId);
             // && !_.isEmpty(this.tile.properties.metrics.value));
-
         if (this.isConfigured) {
             this.report.add('data', this.loader);
             this.loadData();
@@ -44,29 +44,22 @@ class JenkinsciTileViewController {
 
     loadData() {
         this.loader.startLoading();
-        this.JenkinsCIService.fetchTileData(this.tile.id, this.tile.properties)
+        let configurationId = this.Ids.toConfigurationId(this.tile.properties.jenkinsciServer);
+        let buildId = this.tile.properties.buildId;
+        let jobid = this.tile.properties.jobid;
+        let username = this.tile.properties.username;
+        let password = this.tile.properties.password;
+
+        this.JenkinsCIService.fetchTileData(configurationId, buildId, jobid, username, password)
             .then((response) => {
-                const jenkinsData = response.data.data;
-                if (jenkinsData.error) {
-                    return this.loader.failLoading(this.transformErrorsToTileError(jenkinsData.error));
-                }
-                const analysis = _.chain(jenkinsData.analysis).keys()
-                    .map(key => {
-                        return {
-                            key,
-                            title: _.get(this.tile, `properties.metrics.value.${key}`),
-                            ...jenkinsData.analysis[key]
-                        };
-                    }).value();
-                this.result = {
-                    ...jenkinsData,
-                    analysis
-                };
+                console.log(response);
+                const jenkinsData = response;
+                this.result = jenkinsData;
                 this.loader.loaded(jenkinsData);
                 this.loader.endLoading();
             })
             .catch((response) => {
-                this.loader.failLoading(this.transformErrorsToTileError(response.error));
+                this.loader.failLoading(this.transformErrorsToTileError(response));
             });
     }
 
