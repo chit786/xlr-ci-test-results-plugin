@@ -27,48 +27,57 @@
             <div class="col-xs-9">
                 <div inline-select-editor
                      name="Sonar server to connect with"
-                     select-options="$ctrl.sonarServers"
-                     model="$ctrl.tile.properties.sonarServer"
-                     on-change="$ctrl.refreshSonarMetrics()"
+                     select-options="$ctrl.jenkinsServers"
+                     model="$ctrl.tile.properties.jenkinsciServer"
                      class="inline-select-editor">
-                    {{$ctrl.getCurrentSonarServerName()}}
+                    {{$ctrl.getCurrentJenkinsServerName()}}
                 </div>
-                <span class="description">SonarQube server to connect with</span>
+                <span class="description">Jenkins server to connect with</span>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="resource" class="control-label col-xs-3">Project <span class="error">*</span></label>
+            <label for="jobid" class="control-label col-xs-3">Job id <span class="error">*</span></label>
             <div class="col-xs-9">
-                <input type="text" id="resource" name="resource" required
-                       ng-model="$ctrl.tile.properties.resource"
+                <input type="text" id="jobid" name="jobid" required
+                       ng-model="$ctrl.tile.properties.jobid"
                        class="form-control">
-                <span class="description">Component to pull metrics from</span>
+                <span class="description">Component to pull test results from</span>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label col-xs-3">Metrics <span class="error">*</span></label>
-            <div ng-if="$ctrl.isLoadingMetrics" class="spinner" style="text-align: center">
-                <img src="static/@project.version@/styles/img/big-ajax-loader.gif" alt="Loading..."/>
-            </div>
-            <div class="error col-xs-12" ng-if="($ctrl.hasSonarMetricsError && $ctrl.tile.properties.sonarServer) && !$ctrl.isLoadingMetrics">
-                Error occurred while fetching data. Check your sonar configuration.
-            </div>
-            <div class="col-xs-9" ng-if="!$ctrl.isLoadingMetrics">
-                <div xl-dip-list-of-ci
-                     is-disabled="$ctrl.hasSonarMetricsError || $ctrl.isLoadingMetrics"
-                     ng-model="$ctrl.metrics"
-                     metadata="{name: 'metrics', label: ''}"
-                     obj-label="title"
-                     handlers="$ctrl.metricsHandlers"
-                     open-on-click="true"
-                     empty-placeholder="Select metrics...">
-                </div>
-                <span class="description">
-                    Metrics to display
-                </span>
+            <label for="buildId" class="control-label col-xs-3">Build id <span class="error">*</span></label>
+            <div class="col-xs-9">
+                <input type="text" id="buildId" name="buildId" required
+                       ng-model="$ctrl.tile.properties.buildId"
+                       class="form-control">
+                <span class="description">Build id to pull test results from</span>
             </div>
         </div>
+
+        <!--<div class="form-group">-->
+            <!--<label class="control-label col-xs-3">Metrics <span class="error">*</span></label>-->
+            <!--<div ng-if="$ctrl.isLoadingMetrics" class="spinner" style="text-align: center">-->
+                <!--<img src="static/@project.version@/styles/img/big-ajax-loader.gif" alt="Loading..."/>-->
+            <!--</div>-->
+            <!--<div class="error col-xs-12" ng-if="($ctrl.hasSonarMetricsError && $ctrl.tile.properties.sonarServer) && !$ctrl.isLoadingMetrics">-->
+                <!--Error occurred while fetching data. Check your sonar configuration.-->
+            <!--</div>-->
+            <!--<div class="col-xs-9" ng-if="!$ctrl.isLoadingMetrics">-->
+                <!--<div xl-dip-list-of-ci-->
+                     <!--is-disabled="$ctrl.hasSonarMetricsError || $ctrl.isLoadingMetrics"-->
+                     <!--ng-model="$ctrl.metrics"-->
+                     <!--metadata="{name: 'metrics', label: ''}"-->
+                     <!--obj-label="title"-->
+                     <!--handlers="$ctrl.metricsHandlers"-->
+                     <!--open-on-click="true"-->
+                     <!--empty-placeholder="Select metrics...">-->
+                <!--</div>-->
+                <!--<span class="description">-->
+                    <!--Metrics to display-->
+                <!--</span>-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
 </div>

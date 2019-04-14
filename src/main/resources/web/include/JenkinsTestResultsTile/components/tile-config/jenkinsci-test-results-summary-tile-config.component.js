@@ -8,26 +8,23 @@ import template from './jenkinsc-test-results-tile-config.tpl.html';
 
 class JenkinsCiTileConfigController {
 
-    static $inject = ['JenkinsCIService', 'Ids', '$q', '$timeout'];
+    static $inject = ['JenkinsCiService', 'Ids', '$q', '$timeout'];
 
-    constructor(JenkinsCIService, Ids, $q, $timeout) {
-        this.sonarSummaryService = JenkinsCIService;
+    constructor(JenkinsCiService, Ids, $q, $timeout) {
+        this.JenkinsCIService = JenkinsCiService;
         this.Ids = Ids;
         this.$q = $q;
         this.$timeout = $timeout;
-
-        this.metricsHandlers = {
-            addCandidates: this.getMetricsByOptions.bind(this)
-        };
+        //
+        // this.metricsHandlers = {
+        //     addCandidates: this.getMetricsByOptions.bind(this)
+        // };
 
         this.onBeforeSaveListener = this.beforeSave.bind(this);
     }
 
     $onInit() {
         this.parent.registerSaveListener(this.onBeforeSaveListener);
-        this.metrics = _.keys(this.tile.properties.metrics.value).map(id => {
-            return {id, title: this.tile.properties.metrics.value[id]};
-        });
 
         this.isLoading = true;
         this.$q.all([
@@ -48,18 +45,18 @@ class JenkinsCiTileConfigController {
     }
 
     beforeSave(tile) {
-        tile.properties.metrics = _.reduce(this.metrics, (tileMetrics, metric) => {
-            tileMetrics.value[metric.id] = metric.title;
-            return tileMetrics;
-        }, {value: {}, variable: null});
+        // tile.properties.metrics = _.reduce(this.metrics, (tileMetrics, metric) => {
+        //     tileMetrics.value[metric.id] = metric.title;
+        //     return tileMetrics;
+        // }, {value: {}, variable: null});
     }
 
     refreshSonarServers() {
-        this.sonarSummaryService.fetchSonarServers().then((sonarServers) => {
-            this.sonarServers = sonarServers.map((sonarServer) => {
+        this.JenkinsCIService.fetchJenkinsServers().then((jenkinsServers) => {
+            this.jenkinsServers = jenkinsServers.map((jenkinsServer) => {
                 return {
-                    ...sonarServer,
-                    id: this.Ids.getName(sonarServer.id),
+                    ...jenkinsServer,
+                    id: this.Ids.getName(jenkinsServer.id),
                 };
             });
         });
@@ -75,7 +72,7 @@ class JenkinsCiTileConfigController {
         const configurationId = this.Ids.toConfigurationId(this.tile.properties.sonarServer);
 
         this.isLoadingMetrics = true;
-        return this.sonarSummaryService.fetchMetrics(configurationId)
+        return this.JenkinsCIService.fetchMetrics(configurationId)
             .then(sonarMetrics => {
                 this.availableMetrics = _.keys(sonarMetrics).reduce((availableMetrics, id) => {
                     availableMetrics.push({
@@ -93,15 +90,15 @@ class JenkinsCiTileConfigController {
             });
     }
 
-     getCurrentSonarServerName() {
-        if (_.has(this.tile, 'properties.sonarServer') && this.sonarServers) {
-            const currentSonarServer = this.sonarServers.find(s => s.id === this.tile.properties.sonarServer);
-            return currentSonarServer ? currentSonarServer.title : '';
+     getCurrentJenkinsServerName() {
+        if (_.has(this.tile, 'properties.jenkinsciServer') && this.jenkinsServers) {
+            const currentJenkinsServer = this.jenkinsServers.find(s => s.id === this.tile.properties.jenkinsciServer);
+            return currentJenkinsServer ? currentJenkinsServer.title : '';
         }
     }
 }
 
-export const jenkinsCITileConfig = {
+export const jenkinsCiTileConfig = {
     bindings: {
         tile: '<',
         parent: '<'

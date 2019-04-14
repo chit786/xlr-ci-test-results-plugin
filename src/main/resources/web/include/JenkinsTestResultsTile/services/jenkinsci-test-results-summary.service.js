@@ -3,7 +3,7 @@
  *
  * This software and all trademarks, trade names, and logos included herein are the property of XebiaLabs, Inc. and its affiliates, subsidiaries, and licensors.
  */
-export default class JenkinsCIService {
+export default class JenkinsCiService {
 
     static $inject = ['Backend', 'ConfigurationService'];
 
@@ -16,12 +16,12 @@ export default class JenkinsCIService {
         return this.Backend.get(`tiles/${tileId}/data`, {...tileProperties, hideAlert: true});
     }
 
-    fetchSonarServers() {
-        return this.ConfigurationService.searchAllConfiguration('sonar.Server', null).then((data => data['sonar.Server']));
+    fetchJenkinsServers() {
+        return this.ConfigurationService.searchAllConfiguration('jenkinsci.Server', null).then((data => data['jenkinsci.Server']));
     }
 
     fetchMetrics(serverId) {
-        return this.Backend.get('api/extension/sonar/metrics', {params: {serverId}, hideAlert: true}).then((resp) => {
+        return this.Backend.get('api/extension/jenkins/metrics', {params: {serverId}, hideAlert: true}).then((resp) => {
             return _.get(resp, 'data.entity');
         });
     }

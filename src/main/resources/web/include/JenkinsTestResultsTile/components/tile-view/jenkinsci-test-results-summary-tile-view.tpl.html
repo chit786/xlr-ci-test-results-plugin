@@ -11,44 +11,15 @@
     <tile-title ng-if="$ctrl.isConfigured">
         <span class="mrm">
             <i class="xlr-application-icon"></i>
-            <a ng-if="$ctrl.result.sonarProjectUrl" target="_blank" href="{{$ctrl.result.sonarProjectUrl}}"
-               title="Go to this project in SonarQube">
-                {{::$ctrl.tile.properties.resource}}
-            </a>
-            <span ng-if="!$ctrl.result.sonarProjectUrl">{{::$ctrl.tile.properties.resource}}</span>
+            <span>{{::$ctrl.tile.properties}}</span>
         </span>
     </tile-title>
     <tile-content>
         <div class="sonar-summary-tile-content ptl">
             <table class="table">
-                <tr ng-if="$ctrl.result.analysisDate">
+                <tr>
                     <td>Analysis Date</td>
-                    <td>{{$ctrl.result.analysisDate | date : "medium"}}</td>
-                </tr>
-                <tr ng-repeat="analysis in $ctrl.result.analysis | orderBy:'title'">
-                    <td>
-                        <a target="_blank" href="{{::analysis.sonarMetricUrl}}">{{analysis.title}}</a>
-                    </td>
-                    <td>
-                        <span ng-switch on="analysis.key">
-                            <span ng-switch-when="quality_gate_details"
-                                  ng-init="qualityGateDetails=$ctrl.parseJSON(analysis.value)">
-                                <div><strong>Overall</strong>: {{::qualityGateDetails.level}}</div>
-                                <div ng-repeat="condition in qualityGateDetails.conditions">
-                                    {{::$ctrl.getMetricTitle(condition.metric)}} : {{::condition.level}}
-                                </div>
-                            </span>
-                            <span ng-switch-when="ncloc_language_distribution"
-                                  ng-init="languageDistribution=analysis.value.split(';')">
-                                <div ng-repeat="language in languageDistribution">
-                                    {{::language.replace('=', ' : ')}}
-                                </div>
-                            </span>
-                            <span ng-switch-default>
-                                {{analysis.value}}
-                            </span>
-                        </span>
-                    </td>
+                    <!--<td>{{$ctrl.result.analysisDate | date : "medium"}}</td>-->
                 </tr>
             </table>
         </div>

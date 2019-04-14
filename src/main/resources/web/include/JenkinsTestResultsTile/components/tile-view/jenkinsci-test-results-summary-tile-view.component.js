@@ -9,18 +9,19 @@ import template from './jenkinsci-test-results-summary-tile-view.tpl.html';
 
 class JenkinsciTileViewController {
 
-    static $inject = ['JenkinsCIService', 'ReportLoader', 'Report'];
+    static $inject = ['JenkinsCiService', 'ReportLoader', 'Report'];
 
-    constructor(JenkinsCIService, ReportLoader, Report) {
-        this.sonarSummaryService = JenkinsCIService;
+    constructor(JenkinsCiService, ReportLoader, Report) {
+        this.JenkinsCIService = JenkinsCiService;
         this.loader = new ReportLoader();
         this.report = new Report();
     }
 
     $onInit() {
-        this.isConfigured = !!(this.tile.properties.sonarServer
-            && this.tile.properties.resource
-            && !_.isEmpty(this.tile.properties.metrics.value));
+        this.isConfigured = !!(this.tile.properties.jenkinsciServer
+            && this.tile.properties.jobid
+            && this.tile.properties.buildId);
+            // && !_.isEmpty(this.tile.properties.metrics.value));
 
         if (this.isConfigured) {
             this.report.add('data', this.loader);
@@ -35,33 +36,33 @@ class JenkinsciTileViewController {
             && !this.report.hasError();
     }
 
-    transformErrorsToTileError(sonarErrors) {
+    transformErrorsToTileError(jenkinsErrors) {
         return {
-            data: sonarErrors ? sonarErrors.map(e => e.msg).join('\n') : 'Unknown error'
+            data: jenkinsErrors ? jenkinsErrors.map(e => e.msg).join('\n') : 'Unknown error'
         };
     }
 
     loadData() {
         this.loader.startLoading();
-        this.sonarSummaryService.fetchTileData(this.tile.id, this.tile.properties)
+        this.JenkinsCIService.fetchTileData(this.tile.id, this.tile.properties)
             .then((response) => {
-                const sonarData = response.data.data;
-                if (sonarData.error) {
-                    return this.loader.failLoading(this.transformErrorsToTileError(sonarData.error));
+                const jenkinsData = response.data.data;
+                if (jenkinsData.error) {
+                    return this.loader.failLoading(this.transformErrorsToTileError(jenkinsData.error));
                 }
-                const analysis = _.chain(sonarData.analysis).keys()
+                const analysis = _.chain(jenkinsData.analysis).keys()
                     .map(key => {
                         return {
                             key,
                             title: _.get(this.tile, `properties.metrics.value.${key}`),
-                            ...sonarData.analysis[key]
+                            ...jenkinsData.analysis[key]
                         };
                     }).value();
                 this.result = {
-                    ...sonarData,
+                    ...jenkinsData,
                     analysis
                 };
-                this.loader.loaded(sonarData);
+                this.loader.loaded(jenkinsData);
                 this.loader.endLoading();
             })
             .catch((response) => {
@@ -78,7 +79,7 @@ class JenkinsciTileViewController {
     }
 }
 
-export const jenkinsCITileView = {
+export const jenkinsCiTileView = {
     bindings: {
         tile: '<'
     },
