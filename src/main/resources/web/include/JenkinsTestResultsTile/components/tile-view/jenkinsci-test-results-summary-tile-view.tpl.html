@@ -5,32 +5,65 @@
     This software and all trademarks, trade names, and logos included herein are the property of XebiaLabs, Inc. and its affiliates, subsidiaries, and licensors.
 
 -->
-<div tile-container report="$ctrl.report"
-     class="report-tile sonar-summary-tile"
-     ng-class="{'tile-content-loaded': $ctrl.isContentLoaded()}">
-    <tile-title ng-if="$ctrl.isConfigured">
-        Jenkins Test Report
-    </tile-title>
-    <tile-content>
-        <div class="sonar-summary-tile-content ptl">
-            <table class="table">
-                <tr>
-                    <td>Passed</td>
-                    <td>{{$ctrl.result.passCount}}</td>
-                </tr>
-                <tr>
-                    <td>Failed</td>
-                    <td>{{$ctrl.result.failCount}}</td>
-                </tr>
-                <tr>
-                    <td>Skipped</td>
-                    <td>{{$ctrl.result.skipCount}}</td>
-                </tr>
-                <tr>
-                    <td>Duration</td>
-                    <td>{{$ctrl.result.duration}}</td>
-                </tr>
-            </table>
+<!--<div tile-container report="$ctrl.report"-->
+     <!--class="report-tile sonar-summary-tile"-->
+     <!--ng-class="{'tile-content-loaded': $ctrl.isContentLoaded()}">-->
+    <!--<tile-title ng-if="$ctrl.isConfigured">-->
+        <!--Jenkins Test Report-->
+    <!--</tile-title>-->
+    <!--<tile-content>-->
+        <!--<div class="sonar-summary-tile-content ptl">-->
+            <!--<table class="table">-->
+                <!--<tr>-->
+                    <!--<td>Passed</td>-->
+                    <!--<td>{{$ctrl.result.passCount}}</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>Failed</td>-->
+                    <!--<td>{{$ctrl.result.failCount}}</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>Skipped</td>-->
+                    <!--<td>{{$ctrl.result.skipCount}}</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>Duration</td>-->
+                    <!--<td>{{$ctrl.result.duration}}</td>-->
+                <!--</tr>-->
+            <!--</table>-->
+        <!--</div>-->
+    <!--</tile-content>-->
+<!--</div>-->
+
+<div class="sonar-summary-tile dashboard-tile">
+
+    <div class="no-results" ng-if="!$ctrl.isConfigured">
+        Please configure this tile
+    </div>
+
+    <!--<div class="no-results" ng-if="jiraQueryTile.statusesCounter === 0">-->
+        <!--The specified query did not return any issues-->
+    <!--</div>-->
+
+    <div ng-if="$ctrl.result">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="highcharts-tile" donut-chart data="$ctrl.issuesSummaryData" options="$ctrl.chartOptions"></div>
+            </div>
+            <div class="col-md-5 hidden-xs hidden-sm">
+                <ul class="legend">
+                    <li class="row" ng-repeat="value in $ctrl.statuses | orderBy:'-counter'">
+                        <span class="col-sm-1"><span class="circle" ng-style="{'background-color': value.color}"></span></span>
+                        <span class="col-sm-1">{{value.counter}}</span>
+                        <span class="col-sm-6">{{value.status}}</span>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </tile-content>
+    </div>
+
+    <div ng-if="$ctrl.loading" class="spinner" style="text-align: center">
+        <img src="static/@project.version@/styles/img/big-ajax-loader.gif" alt="Loading..."/>
+    </div>
+
 </div>

@@ -19,7 +19,7 @@ export default class JenkinsCiService {
     fetchTileData(serverId, buildId, jobid, uName, pass) {
         console.log(serverId);
         return this.Backend.get(`api/extension/jenkins/metrics`, {params: {serverId, buildId, jobid, ...uName, ...pass}, hideAlert: true}).then((resp) => {
-            console.log('log', _.get(resp, 'data.entity'));
+            // console.log('log', _.get(resp, 'data.entity'));
             return _.get(resp, 'data.entity');
         });
     }
