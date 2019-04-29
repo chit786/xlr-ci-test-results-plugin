@@ -12,10 +12,6 @@ export default class JenkinsCiService {
         this.ConfigurationService = ConfigurationService;
     }
 
-    // fetchTileData(tileId, tileProperties) {
-    //     return this.Backend.get(`tiles/${tileId}/data`, {...tileProperties, hideAlert: true});
-    // }
-
     fetchJenkinsServers() {
         return this.ConfigurationService.searchAllConfiguration('jenkinsci.Server', null).then((data => data['jenkinsci.Server']));
     }
