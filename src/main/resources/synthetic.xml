@@ -33,6 +33,8 @@
     <!--Tile-->
     <type type="jenkinsci.JenkinsTestResultsTile" label="jenkins ci test results" extends="xlrelease.Tile" description="Display Jenkins test results.">
         <property name="uri" hidden="true" default="include/JenkinsTestResultsTile/jenkins-test-results-tile-summary.html" />
+        <property name="detailsUri" hidden="true"
+                  default="include/JenkinsTestResultsTile/jenkins-test-results-tile-detail.html"/>
         <property name="configurationUri" hidden="true" default="include/JenkinsTestResultsTile/jenkins-test-results-config-summary.html" />
         <property name="width" kind="integer" default="2"/>
         <property name="height" kind="integer" default="2"/>

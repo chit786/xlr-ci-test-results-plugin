@@ -1,0 +1,29 @@
+<!--
+
+    Copyright (c) 2018. All rights reserved.
+
+    This software and all trademarks, trade names, and logos included herein are the property of XebiaLabs, Inc. and its affiliates, subsidiaries, and licensors.
+
+-->
+<div>
+    <div>
+        <div ng-repeat="suite in $ctrl.result">
+            <div ng-repeat="testResult in suite.cases | filter: {status: 'REGRESSION'}">
+                <jenkins-ci-tile-row css-class="'failed-test-row'" test-result="testResult"></jenkins-ci-tile-row>
+            </div>
+        </div>
+        <div ng-repeat="suite in $ctrl.result">
+            <div ng-repeat="testResult in suite.cases | filter: {status: 'SKIPPED'}">
+                <jenkins-ci-tile-row css-class="'skipped-test-row'" test-result="testResult"></jenkins-ci-tile-row>
+            </div>
+        </div>
+        <div ng-repeat="suite in $ctrl.result">
+            <div ng-repeat="testResult in suite.cases | filter: {status: 'PASSED'}">
+                <jenkins-ci-tile-row css-class="'passed-test-row'" test-result="testResult"></jenkins-ci-tile-row>
+            </div>
+        </div>
+    </div>
+    <div class="spinner" ng-if="$ctrl.loading" style="text-align: center">
+        <img alt="Loading..." src="static/@project.version@/styles/img/big-ajax-loader.gif"/>
+    </div>
+</div>

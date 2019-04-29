@@ -1,0 +1,18 @@
+<div class="jenkins-ci-tile-row">
+    <div class="test-row-content">
+        <div class="row" ng-class="$ctrl.cssClass">
+            <div class="row-wrapper">
+                <div class="col-xs-12">
+                    <strong>{{$ctrl.testResult.name}}</strong>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-if="$ctrl.showTestData">
+            <div class="col-xs-12">
+                <jenkins-ci-test-data-component show="$ctrl.showTestData"
+                                                test-result="$ctrl.testResult"></jenkins-ci-test-data-component>
+            </div>
+        </div>
+    </div>
+    <jenkins-ci-test-data-button-component active="$ctrl.showTestData" ng-click="$ctrl.toggleTestView()"/>
+</div>

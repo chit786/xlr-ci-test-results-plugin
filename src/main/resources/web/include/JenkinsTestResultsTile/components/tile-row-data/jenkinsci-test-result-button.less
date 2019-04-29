@@ -1,0 +1,31 @@
+@gray: #999999;
+@background: #F0F0F0;
+
+.jenkinsci-test-button-container {
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  justify-content: center;
+  width: 100%;
+  height: 13px;
+
+  .pipeline-button {
+    height: 12px;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    cursor: pointer;
+    background-color: @background;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+
+    .pipeline-chevron {
+      color: @gray;
+      top: -3px;
+    }
+  }
+}

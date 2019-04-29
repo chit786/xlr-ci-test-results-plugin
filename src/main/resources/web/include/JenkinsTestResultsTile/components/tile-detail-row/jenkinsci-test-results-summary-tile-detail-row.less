@@ -1,0 +1,114 @@
+// PRIMARY COLORS
+@blue: #0099CC;
+@yellow: #FCD866;
+@green: #08B153;
+@red: #D94C3D;
+@orange: #FD8D10;
+@purple: #991C71;
+
+// SECONDARY COLORS
+@xldblue: #14B0E4;
+@lightblue: #5FCBF4;
+@darkblue: #4C6C87;
+
+// SHADES OF GRAY
+@black: #333333;
+@antracite: #495561;
+@gray: #999999;
+@lightgray: #D5D5D5;
+@background: #F0F0F0;
+@silver: #F9F9F9;
+@white: #FFFFFF;
+
+@triggerRowHeight: 63px;
+@borderRadius: 5px;
+
+.lineBox(@background: @white, @borderColor: @lightgray, @padding: 0px) {
+  .roundCorner(4px);
+  border: 1px solid @borderColor;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  background-color: @background;
+  padding: @padding;
+}
+
+.roundCorner(@rad: 4px) {
+  -webkit-appearance: none;
+  -webkit-border-radius: @rad;
+  -moz-border-radius: @rad;
+  border-radius: @rad;
+}
+
+/*
+.jenkins-ci-tile-row {
+  .test-row-content, .data-row-content {
+    border: 1px solid transparent;
+    padding: 10px 0;
+    align-items: center;
+    display: flex;
+    min-height: @triggerRowHeight;
+    border-color: @lightgray;
+    border-radius: @borderRadius;
+  }
+
+  .test-row-content {
+    margin: 8px 10px 0px 10px;
+    color: @white;
+  }
+
+  .data-row-content {
+    margin: 0px 10px 0px 10px;
+    color: @black;
+  }
+
+  .failed-test-row {
+    background-color: @red;
+  }
+
+  .skipped-test-row {
+    background-color: @gray;
+  }
+
+  .passed-test-row {
+    background-color: @green;
+  }
+}
+*/
+.jenkins-ci-tile-row > .test-row-content {
+
+  position: relative;
+
+  .row [class*="col-"] {
+    .row {
+      display: flex;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      align-items: center;
+    }
+  }
+
+  .lineBox(@background: @white, @lightgray, @padding: 0px);
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.row-wrapper {
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 10px 0;
+}
+
+.failed-test-row {
+  background-color: @red;
+}
+
+.skipped-test-row {
+  background-color: @gray;
+}
+
+.passed-test-row {
+  background-color: @green;
+}
